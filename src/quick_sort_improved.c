@@ -8,7 +8,25 @@ int A[N];
 /*
 A[0], A[1], ..., A[n-1] をソートして昇順に書き換える関数
 */
-void quick_sort(int A[], int n){
+#define SWAP(a, b) do {int c = a; a = b; b = c;} while(0)
+void quick_sort(int A[], int n)
+{
+	if (n < 2) return;
+	int pivot = A[0], j = 0, k = 0;
+	for (int i = 1; i < n; i++) {
+		if (A[i] < pivot) {
+			k++;
+			j++;
+			SWAP(A[k], A[j]);
+			SWAP(A[i], A[j]);
+		} else if (A[i] == pivot) {
+			k++;
+			SWAP(A[i], A[k]);
+		}
+	}
+	SWAP(A[0], A[j]);
+	quick_sort(A + k + 1, n - k - 1);
+	quick_sort(A, j);
 }
 
 int main(){

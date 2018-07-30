@@ -13,19 +13,21 @@ A[0], A[1], ..., A[n-1] の中でk+1番目に小さい値を返す関数
 int quick_select(int A[], int n, int p)
 {
 	SWAP(A[0], A[n/2]);
-	int pivot = A[0], j = 0, k = 0;
+	int pivot = A[0], j = 0;
 	for (int i = 1; i < n; i++) {
 		if (A[i] < pivot) {
-			k++;
 			j++;
-			SWAP(A[k], A[j]);
 			SWAP(A[i], A[j]);
-		} else if (A[i] == pivot) {
+		}
+	}
+	SWAP(A[0], A[j]);
+	int k = j;
+	for (int i = k + 1; i < n; i++) {
+		if (A[i] == pivot) {
 			k++;
 			SWAP(A[i], A[k]);
 		}
 	}
-	SWAP(A[0], A[j]);
 	if (j <= p && p <= k) return pivot;
 	else if (p < j) return quick_select(A, j, p);
 	else return quick_select(A + k + 1, n - k - 1, p - k - 1);

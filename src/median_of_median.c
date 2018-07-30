@@ -50,13 +50,15 @@ int quick_select(int A[], int n, int p)
 	int pivot = select_pivot(A, n), j = 0, k = 0;
 	for (int i = 0; i < n; i++) {
 		if (A[i] < pivot) {
-			SWAP(A[k], A[j]);
-			SWAP(A[i], A[j]);
-			k++;
 			j++;
-		} else if (A[i] == pivot) {
-			SWAP(A[i], A[k]);
+			SWAP(A[i], A[j]);
+		}
+	}
+	int k = j;
+	for (int i = k + 1; i < n; i++) {
+		if (A[i] == pivot) {
 			k++;
+			SWAP(A[i], A[k]);
 		}
 	}
 	if (j <= p && p < k) return pivot;
